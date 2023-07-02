@@ -1,0 +1,8 @@
+# Modelado logico del problema:
+
+
+# Variables
+Juega i, j, k, h "El participante i juega contra j el dia k en la hora h"
+Local i, k, h. "El participante i juega local en el partido del dia k de la hora h"
+
+# Restricciones
