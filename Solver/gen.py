@@ -65,7 +65,7 @@ class SatSolver():
             for slot in range(1, self.slots_per_day+1):
                 vars = generate_teams_per_day_and_slot(day, slot, self.total_teams)
 
-            self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
+                self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
 
 
@@ -109,8 +109,8 @@ class SatSolver():
 if __name__ == '__main__':
 
     total_teams = 5
-    total_days = 20
-    slots_per_day = 1
+    total_days = 10
+    slots_per_day = 2
 
     solver = SatSolver(total_teams, total_days, slots_per_day)
     solver.solve()
