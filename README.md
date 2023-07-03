@@ -1,3 +1,6 @@
+# Instrucciones:
+Compilar glucose y pegar el archivo "glucose" en la carpeta "Solver"
+
 # Objetivo
 
 El objetivo de este proyecto es aprender a modelar un problema en CNF, y a usar un SAT solver para resolverlo, así como traducir la salida del SAT solver a un formato legible.
