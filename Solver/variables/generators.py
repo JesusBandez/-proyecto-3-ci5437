@@ -24,3 +24,12 @@ def generate_days_per_team(team, day, total_teams, total_slots):
             vars.append(f'{team}{oponent}{day}{slot}')
             vars.append(f'{oponent}{team}{day}{slot}')
     return vars
+
+
+def generate_teams_per_day_and_slot(day, slot, total_teams):
+    vars = []
+    for local in range(1, total_teams+1):
+        for away in range(1, total_teams+1):
+            if local == away: continue  
+            vars.append(f'{local}{away}{day}{slot}')
+    return vars
