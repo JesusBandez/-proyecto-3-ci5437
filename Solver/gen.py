@@ -2,7 +2,9 @@ from variables.generators import (
     generate_variables,
     generate_days_with_teams,
     generate_days_per_team,
-    generate_teams_per_day_and_slot
+    generate_teams_per_day_and_slot,
+    generate_no_consecutive_local_games,
+    generate_no_consecutive_away_games
 )
 from variables.condicionales import (
     sum_greater_or_equal,
@@ -67,6 +69,19 @@ class SatSolver():
 
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
+    def no_two_consecutive_local_games_per_team(self):
+        'Un equipo no puede jugar como local dos dias seguidos'        
+        for team in range(1, self.total_teams+1):           
+            for day in range(1, self.total_days):                
+                vars = generate_no_consecutive_local_games(team, day, self.total_teams, self.slots_per_day)
+                self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
+
+    def no_two_consecutive_away_games_per_team(self):
+        'Un equipo no puede jugar como local dos dias seguidos'        
+        for team in range(1, self.total_teams+1):           
+            for day in range(1, self.total_days):                
+                vars = generate_no_consecutive_away_games(team, day, self.total_teams, self.slots_per_day)
+                self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
 
 
@@ -87,6 +102,8 @@ class SatSolver():
         self.each_team_plays_with_another_exactly_one_time()
         self.at_most_one_game_a_day_per_team()
         self.only_one_game_per_day_and_slot()
+        self.no_two_consecutive_local_games_per_team()
+        self.no_two_consecutive_away_games_per_team()
         self.constraints = f'p cnf {len(self.bidict)} {self.clauses}\n{self.constraints}'
 
         with open(CNF_FILE_NAME, 'w') as f:
@@ -108,9 +125,9 @@ class SatSolver():
 
 if __name__ == '__main__':
 
-    total_teams = 5
-    total_days = 10
-    slots_per_day = 2
+    total_teams = 4
+    total_days = 12
+    slots_per_day = 1
 
     solver = SatSolver(total_teams, total_days, slots_per_day)
     solver.solve()
