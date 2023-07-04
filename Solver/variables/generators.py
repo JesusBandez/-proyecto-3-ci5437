@@ -1,3 +1,4 @@
+from itertools import product
 class VarsGenerator():
     def __init__(self, total_teams, total_days, slots_per_day):
         self.total_teams = total_teams
@@ -34,14 +35,14 @@ class VarsGenerator():
 
     def generate_variables(self):
         vars = []
-        for local_team in range(1, self.total_teams+1):
-            for road_team in range(1, self.total_teams+1):
-                if local_team == road_team: continue
-
-                for day in range(1, self.total_days+1):
-                    for slot in range(1, self.slots_per_day+1):
-                        vars.append(self.format_vars(local_team, road_team, day, slot))
-        return vars
+        local = range(1, self.total_teams+1)
+        road = range(1, self.total_teams+1)
+        day = range(1, self.total_days+1)
+        slot = range(1, self.slots_per_day+1)
+        prod = product(local, road, day, slot)
+        vars = filter(lambda x: x[0]!=x[1], prod)
+        vars = map(lambda x: self.format_vars(x[0], x[1], x[2], x[3]), vars)
+        return list(vars)
 
     def generate_days_with_teams(self, local_team, road_team):
         vars = []
