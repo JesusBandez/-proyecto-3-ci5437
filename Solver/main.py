@@ -40,7 +40,7 @@ if __name__ == '__main__':
     horas_disponibles = int(horas.total_seconds()/3600) - 1 #no se cuenta la hora de inicio
     slots_per_day = int(horas_disponibles / 2) #cada partido dura 2 horas
 
-    solver = SatSolver(total_teams, total_days, slots_per_day)
+    solver = SatSolver(total_teams, total_days, slots_per_day,data['participants'])
     # Ejecutar el metodo solve(), retorna una lista de objetos
     # "Asignation" (Esa clase esta en ./variables/Parser.py)
     asignations = solver.solve()

@@ -21,12 +21,13 @@ GLUCOSE_FILE_NAME = 'gluc.gluc'
 
 class SatSolver():
     def __init__(self, total_teams, 
-                total_days, slots_per_day):
+                total_days, slots_per_day,teams=None):
         self.total_teams = total_teams
         self.total_days = total_days
         self.slots_per_day = slots_per_day
         self.vars = VarsGenerator(self.total_teams, self.total_days, self.slots_per_day)
         self.generate_bi_dict()
+        self.teams = teams
         
         self.clauses = 0
         self.constraints = ''
@@ -95,7 +96,7 @@ class SatSolver():
         vars = self.output.split()
         vars = list(filter(lambda x: int(x) > 0, vars))
         output = [self.bidict.inverse[var] for var in vars]
-        parser = Parser(output, self.total_teams, self.total_days, self.slots_per_day)
+        parser = Parser(output, self.total_teams, self.total_days, self.slots_per_day, self.teams)
         self.output = parser.parse_vars()
         
         
@@ -126,22 +127,5 @@ class SatSolver():
                            
 
                 
-
-# Ejemplo para usar el solver.
-if __name__ == '__main__':
-
-    # Crear una instancia con los parametros
-    total_teams = 10
-    total_days = 100
-    slots_per_day = 1    
-    solver = SatSolver(total_teams, total_days, slots_per_day)
-    # Ejecutar el metodo solve(), retorna una lista de objetos
-    # "Asignation" (Esa clase esta en ./variables/Parser.py)
-    asignations = solver.solve()
-    
-    # Imprimir asignaciones
-    for asignation in asignations:
-        print(asignation)
-    
 
     
