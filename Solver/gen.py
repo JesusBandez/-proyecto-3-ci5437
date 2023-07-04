@@ -1,6 +1,11 @@
 from variables.generators import (
     VarsGenerator
 )
+
+from variables.Parser import (
+    Parser
+)
+
 from variables.condicionales import (
     sum_greater_or_equal,
     sum_less_or_equal
@@ -27,7 +32,7 @@ class SatSolver():
         self.constraints = ''
 
     def generate_bi_dict(self):
-        vars_set = [var for var in self.vars.generate_variables()]
+        vars_set =self.vars.generate_variables()
         glucose_vars = range(1, len(vars_set)+1)
         vars_dict = {var:str(glucose_var) for var, glucose_var in zip(vars_set, glucose_vars)}
         self.bidict = bidict(vars_dict)
@@ -89,8 +94,10 @@ class SatSolver():
         if not self.output: return None
         vars = self.output.split()
         vars = list(filter(lambda x: int(x) > 0, vars))
-        self.output = [self.bidict.inverse[var] for var in vars]
-        print(self.output)
+        output = [self.bidict.inverse[var] for var in vars]
+        parser = Parser(output, self.total_teams, self.total_days, self.slots_per_day)
+        self.output = parser.parse_vars()
+        
         
     def solve(self):
         self.each_team_plays_with_another_exactly_one_time()
@@ -104,27 +111,37 @@ class SatSolver():
             f.write(self.constraints)
             f.close()
 
+        print("Solving!")
+
         self.call_glucose()
+        print("Parsing solution!")
         with open(GLUCOSE_FILE_NAME, 'r') as f:
             self.output = f.readline().strip()
             if self.output == "UNSAT":
                 self.output = None
         self.parse_output()
+        return self.output
             
 
                            
 
                 
 
-
+# Ejemplo para usar el solver.
 if __name__ == '__main__':
 
-    total_teams = 4
-    total_days = 12
-    slots_per_day = 1
-
+    # Crear una instancia con los parametros
+    total_teams = 10
+    total_days = 100
+    slots_per_day = 1    
     solver = SatSolver(total_teams, total_days, slots_per_day)
-    solver.solve()
+    # Ejecutar el metodo solve(), retorna una lista de objetos
+    # "Asignation" (Esa clase esta en ./variables/Parser.py)
+    asignations = solver.solve()
+    
+    # Imprimir asignaciones
+    for asignation in asignations:
+        print(asignation)
     
 
     

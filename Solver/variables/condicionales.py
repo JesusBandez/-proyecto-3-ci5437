@@ -1,8 +1,9 @@
 import itertools
+from math import perm
 def sum_greater_or_equal(bidict, variables, k):
 
-    subsets = list(itertools.combinations(variables, len(variables)-k+1))
-    clauses = len(subsets)
+    subsets = itertools.combinations(variables, len(variables)-k+1)
+    clauses = perm(len(variables), len(variables)-k+1)
     constrainsts = ''
     for subet in subsets:
         for var in subet:
@@ -14,8 +15,8 @@ def sum_greater_or_equal(bidict, variables, k):
 
 def sum_less_or_equal(bidict, variables, k):
     
-    subsets = list(itertools.combinations(variables, k+1))
-    clauses = len(subsets)
+    subsets = itertools.combinations(variables, k+1)
+    clauses = perm(len(variables), k+1)
     constrainsts = ''
     for subet in subsets:
         for var in subet:

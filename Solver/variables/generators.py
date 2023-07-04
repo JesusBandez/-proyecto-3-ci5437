@@ -33,13 +33,15 @@ class VarsGenerator():
         ])
 
     def generate_variables(self):
+        vars = []
         for local_team in range(1, self.total_teams+1):
             for road_team in range(1, self.total_teams+1):
                 if local_team == road_team: continue
 
                 for day in range(1, self.total_days+1):
                     for slot in range(1, self.slots_per_day+1):
-                        yield self.format_vars(local_team, road_team, day, slot)
+                        vars.append(self.format_vars(local_team, road_team, day, slot))
+        return vars
 
     def generate_days_with_teams(self, local_team, road_team):
         vars = []
