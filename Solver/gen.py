@@ -1,10 +1,5 @@
 from variables.generators import (
-    generate_variables,
-    generate_days_with_teams,
-    generate_days_per_team,
-    generate_teams_per_day_and_slot,
-    generate_no_consecutive_local_games,
-    generate_no_consecutive_away_games
+    VarsGenerator
 )
 from variables.condicionales import (
     sum_greater_or_equal,
@@ -25,12 +20,14 @@ class SatSolver():
         self.total_teams = total_teams
         self.total_days = total_days
         self.slots_per_day = slots_per_day
-        self.generate_bi_dict(total_teams, total_days, slots_per_day)
+        self.vars = VarsGenerator(self.total_teams, self.total_days, self.slots_per_day)
+        self.generate_bi_dict()
+        
         self.clauses = 0
         self.constraints = ''
 
-    def generate_bi_dict(self, *args):
-        vars_set = [var for var in generate_variables(*args)]
+    def generate_bi_dict(self):
+        vars_set = [var for var in self.vars.generate_variables()]
         glucose_vars = range(1, len(vars_set)+1)
         vars_dict = {var:str(glucose_var) for var, glucose_var in zip(vars_set, glucose_vars)}
         self.bidict = bidict(vars_dict)
@@ -45,8 +42,7 @@ class SatSolver():
         for local_team in range(1, self.total_teams+1):
             for road_team in range(1, self.total_teams+1):
                 if local_team == road_team: continue
-                vars = generate_days_with_teams(local_team, road_team, 
-                                                self.total_days, self.slots_per_day)
+                vars = self.vars.generate_days_with_teams(local_team, road_team)
 
                 self.increase_outputs(sum_greater_or_equal(self.bidict, vars, 1))                
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
@@ -56,16 +52,14 @@ class SatSolver():
         'A lo mas un equipo puede jugar una vez por dia'
         for team in range(1, self.total_teams+1):
             for day in range(1, self.total_days+1):
-                vars = generate_days_per_team(team, day,
-                    self.total_teams, self.slots_per_day)
-                
+                vars = self.vars.generate_days_per_team(team, day)                
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
     def only_one_game_per_day_and_slot(self):
         'No puede haber dos juegos al mismo tiempo'
         for day in range(1, self.total_days+1):
             for slot in range(1, self.slots_per_day+1):
-                vars = generate_teams_per_day_and_slot(day, slot, self.total_teams)
+                vars = self.vars.generate_teams_per_day_and_slot(day, slot)
 
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
@@ -73,14 +67,14 @@ class SatSolver():
         'Un equipo no puede jugar como local dos dias seguidos'        
         for team in range(1, self.total_teams+1):           
             for day in range(1, self.total_days):                
-                vars = generate_no_consecutive_local_games(team, day, self.total_teams, self.slots_per_day)
+                vars = self.vars.generate_no_consecutive_local_games(team, day)
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
     def no_two_consecutive_away_games_per_team(self):
         'Un equipo no puede jugar como local dos dias seguidos'        
         for team in range(1, self.total_teams+1):           
             for day in range(1, self.total_days):                
-                vars = generate_no_consecutive_away_games(team, day, self.total_teams, self.slots_per_day)
+                vars = self.vars.generate_no_consecutive_away_games(team, day)
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
 
