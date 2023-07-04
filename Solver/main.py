@@ -39,15 +39,26 @@ if __name__ == '__main__':
     total_days = delta.days+1 #ambos dias incluso
     horas_disponibles = int(horas.total_seconds()/3600) - 1 #no se cuenta la hora de inicio
     slots_per_day = int(horas_disponibles / 2) #cada partido dura 2 horas
-    print(f'total_teams: {total_teams}')
-    print(f'total_days: {total_days}')
-    print(f'slots_per_day: {slots_per_day}')
 
     solver = SatSolver(total_teams, total_days, slots_per_day)
     # Ejecutar el metodo solve(), retorna una lista de objetos
     # "Asignation" (Esa clase esta en ./variables/Parser.py)
     asignations = solver.solve()
     
+    print(f'\nTorneo {data["tournament_name"]}')
+    print(f'Fecha de inicio: {data["start_date"]}')
+    print(f'Fecha de fin: {data["end_date"]}')
+    print(f'Hora de inicio: {data["start_time"]}')
+    print(f'Hora de fin: {data["end_time"]}')
+    print(f'Cantidad de equipos: {total_teams}')
+    print(f'Cantidad de dias: {total_days}')
+    print(f'Partidos por dia: {slots_per_day}')
+    
+    if asignations == None:
+        print("No existe asignacion posible con los datos suministrados")
+        exit()
+
+    print("\nAsignaciones:")
     # Imprimir asignaciones
     for asignation in asignations:
         print(asignation)
