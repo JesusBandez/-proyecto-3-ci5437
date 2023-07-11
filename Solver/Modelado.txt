@@ -1,8 +1,0 @@
-# Modelado logico del problema:
-
-
-# Variables
-Juega i, j, k, h "El participante i juega contra j el dia k en la hora h"
-
-
-# Restricciones

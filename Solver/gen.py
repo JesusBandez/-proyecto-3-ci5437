@@ -77,7 +77,7 @@ class SatSolver():
                 self.increase_outputs(sum_less_or_equal(self.bidict, vars, 1))
 
     def no_two_consecutive_away_games_per_team(self):
-        'Un equipo no puede jugar como local dos dias seguidos'        
+        'Un equipo no puede jugar como visitante dos dias seguidos'        
         for team in range(1, self.total_teams+1):           
             for day in range(1, self.total_days):                
                 vars = self.vars.generate_no_consecutive_away_games(team, day)

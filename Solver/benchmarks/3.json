@@ -1,0 +1,9 @@
+{
+    "tournament_name": "medium10Teams50days3slots",
+    "start_date": "2017-06-01",
+    "end_date": "2017-07-22",
+    "start_time": "09:00:20",
+    "end_time": "18:23:09",
+    "participants": ["leones","tiburones","aguilas",
+    "tigres", "condores", "Caimanes", "Cardenales", "Turpiales", "Gatos", "Bandicoots"]
+  }
