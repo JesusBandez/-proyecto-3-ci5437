@@ -1,6 +1,31 @@
-# Instrucciones:
-Compilar glucose y pegar el archivo "glucose" en la carpeta "Solver"
+# Instrucciones para ejecutar  el proyecto:
+Descargar y compilar glucose. Luego, pegar el archivo "glucose" dentro de la carpeta "Solver" de forma que el archivo quede en:
+`./Solver/glucose`
 
+El proyecto ha sido desarrollado en Python. Se debe tener el interpretador de [Python](https://www.python.org/downloads/) instalado. Luego, instalar las dependencias ejecutando el comando: 
+`pip install -r requirements.txt `
+
+Para correr el proyecto, se necesita tener el json en un archivo .json. Luego, se mueve hacia la carpeta Solver usando:
+`cd Solver`
+y se ejecuta
+`python3 main.py <ruta al json>`
+El archivo cnf se genera como ¨cnf.cnf¨ y el archivo ics se genera con formato <nombre_del_troneo>.ics
+
+### Ejemplo de ejecución
+A continuacióm, se muestra un ejemplo para ejecutar el proyecto.
+El archivo torneo.json contiene:
+{
+  "tournament_name": "tournamentname",
+  "start_date": "2017-06-01",
+  "end_date": "2017-06-13",
+  "start_time": "07:00:20",
+  "end_time": "18:23:09",
+  "participants": ["leones","tiburones","aguilas","tigres"]
+}
+Se ejecuta:
+`python3 main.py torneo.json`
+Esto crea el archivo ¨cnf.cnf¨. Este archivo se le pasa a glucose y genera el archivo:
+¨tournament.ics¨
 # Objetivo
 
 El objetivo de este proyecto es aprender a modelar un problema en CNF, y a usar un SAT solver para resolverlo, así como traducir la salida del SAT solver a un formato legible.
