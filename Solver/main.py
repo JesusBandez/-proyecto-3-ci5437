@@ -69,20 +69,12 @@ if __name__ == '__main__':
         event_name = f' {asignation.teams[asignation.local-1]} vs {asignation.teams[asignation.away-1]}'
         event_description = f' Local: {asignation.teams[asignation.local-1]}, Visitante: {asignation.teams[asignation.away-1]}'
         event_location = ""
-        event_start_time = datetime(dia_inicio.year, 
-                                    dia_inicio.month, 
-                                    dia_inicio.day + asignation.day-1, 
-                                    hora_inicio.hour + 2*(asignation.slot-1), 
-                                    0, 
-                                    0, 
-                                    tzinfo=timezone.utc)
-        event_end_time = datetime(dia_inicio.year, 
-                                    dia_inicio.month, 
-                                    event_start_time.day, 
-                                    event_start_time.hour + 2, 
-                                    0, 
-                                    0, 
-                                    tzinfo=timezone.utc)
+        
+        event_start_time = dia_inicio + timedelta(days=asignation.day-1) + timedelta(hours=hora_inicio.hour + 2*(asignation.slot-1))
+        event_start_time.replace(tzinfo=timezone.utc)
+        
+        event_end_time = event_start_time + timedelta(hours=2)
+        event_end_time.replace(tzinfo=timezone.utc)
 
         # Se agrega el evento al calendario
         event = icalendar.Event()
