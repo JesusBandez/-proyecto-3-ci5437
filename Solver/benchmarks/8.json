@@ -1,7 +1,7 @@
 {
-    "tournament_name": "18Teams60days3slots",
+    "tournament_name": "18Teams70days3slots",
     "start_date": "2017-06-01",
-    "end_date": "2017-08-01",
+    "end_date": "2017-08-11",
     "start_time": "09:00:20",
     "end_time": "18:23:09",
     "participants": ["leones","tiburones","aguilas",

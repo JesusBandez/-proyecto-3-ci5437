@@ -71,3 +71,45 @@ Fin de ejecucion de 5.json
 
 
 Ejecutando archivo 6.json
+Solving!
+Parsing solution!
+Se ha creado el archivo ultrahard14Teams60days3slots.ics con las asignaciones
+Puede abrir el archivo para agregarlo a su calendario
+
+real	5m0,446s
+user	2m5,402s
+sys	2m54,784s
+Fin de ejecucion de 6.json
+
+
+Ejecutando archivo 7.json
+Solving!
+Parsing solution!
+Se ha creado el archivo 16Teams60days3slots.ics con las asignaciones
+Puede abrir el archivo para agregarlo a su calendario
+
+real	8m39,748s
+user	3m47,695s
+sys	4m51,767s
+Fin de ejecucion de 7.json
+
+Ejecutando archivo 8.json
+Solving!
+Traceback (most recent call last):
+  File "/home/jesus/Documents/Materias/Inteligencia Artifical/proyecto-3-ci5437/Solver/main.py", line 38, in <module>
+    asignations = solver.solve()
+  File "/home/jesus/Documents/Materias/Inteligencia Artifical/proyecto-3-ci5437/Solver/gen.py", line 117, in solve
+    self.call_glucose()
+  File "/home/jesus/Documents/Materias/Inteligencia Artifical/proyecto-3-ci5437/Solver/gen.py", line 91, in call_glucose
+    subprocess.run(['./glucose', CNF_FILE_NAME, GLUCOSE_FILE_NAME,  '-model', '-verb=0'], 
+  File "/usr/lib/python3.10/subprocess.py", line 503, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1144, in communicate
+    self.wait()
+  File "/usr/lib/python3.10/subprocess.py", line 1207, in wait
+    return self._wait(timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1941, in _wait
+    (pid, sts) = self._try_wait(0)
+  File "/usr/lib/python3.10/subprocess.py", line 1899, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+KeyboardInterrupt
