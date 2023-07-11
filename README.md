@@ -1,6 +1,5 @@
 # Instrucciones para ejecutar  el proyecto:
-Descargar y compilar glucose. Luego, pegar el archivo "glucose" dentro de la carpeta "Solver" de forma que el archivo quede en:
-`./Solver/glucose`
+Descargar y compilar glucose. Luego, pegar el archivo "glucose" dentro de la carpeta "Solver".
 
 El proyecto ha sido desarrollado en Python. Se debe tener el interpretador de [Python](https://www.python.org/downloads/) instalado. Luego, instalar las dependencias ejecutando el comando: 
 `pip install -r requirements.txt `
@@ -12,8 +11,10 @@ y se ejecuta
 El archivo cnf se genera como ¨cnf.cnf¨ y el archivo ics se genera con formato <nombre_del_troneo>.ics
 
 ### Ejemplo de ejecución
-A continuacióm, se muestra un ejemplo para ejecutar el proyecto.
+A continuación, se muestra un ejemplo para ejecutar el proyecto.
+
 El archivo torneo.json contiene:
+
 {
   "tournament_name": "tournamentname",
   "start_date": "2017-06-01",
@@ -22,8 +23,12 @@ El archivo torneo.json contiene:
   "end_time": "18:23:09",
   "participants": ["leones","tiburones","aguilas","tigres"]
 }
+
+
 Se ejecuta:
+
 `python3 main.py torneo.json`
+
 Esto crea el archivo ¨cnf.cnf¨. Este archivo se le pasa a glucose y genera el archivo:
 ¨tournament.ics¨
 # Objetivo
